@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free YouTube to MP3 converter - Download high-quality audio from YouTube videos in seconds">
+    <meta name="keywords" content="youtube to mp3, youtube converter, free mp3 download, youtube downloader">
+    <title>YT2MP3 - Fast YouTube to MP3 Converter | Free Download Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_CLIENT_ID" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #ff0000;
+            --primary-dark: #cc0000;
+            --secondary: #282828;
+            --light: #f5f5f5;
+            --dark: #121212;
+            --gray: #aaaaaa;
+            --success: #4CAF50;
+            --warning: #FF9800;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            padding: 3rem 0;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://source.unsplash.com/random/1200x600/?music') no-repeat center center/cover;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--secondary);
+        }
+        
+        .converter-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .input-group {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .url-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .url-input:focus {
+            border-color: var(--primary);
+        }
+        
+        .convert-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .convert-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .options {
+            margin-bottom: 2rem;
+        }
+        
+        .options h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .compression-levels {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .compression-option {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .compression-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .compression-option.selected {
+            border-color: var(--primary);
+            background: rgba(255, 0, 0, 0.05);
+        }
+        
+        .compression-option i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .download-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #3d8b40;
+        }
+        
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            min-height: 250px;
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            max-width: 728px;
+            height: 250px;
+            background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+        }
+        
+        .ad-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #999;
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .url-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .convert-btn {
+                border-radius: 5px;
+                padding: 12px;
+            }
+            
+            .compression-levels {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .converter-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-youtube"></i>
+                    <h1>YT2MP3</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-download"></i> How to Download</a></li>
+                        <li><a href="#"><i class="fas fa-music"></i> Audio Quality</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Convert YouTube Videos to MP3 in Seconds</h2>
+            <p>Free, fast and easy to use YouTube to MP3 converter. Download high-quality audio from any YouTube video with our optimized compression technology.</p>
+            
+            <div class="converter-card">
+                <div class="input-group">
+                    <input type="text" class="url-input" id="youtubeUrl" placeholder="Paste YouTube URL here...">
+                    <button class="convert-btn" id="convertBtn">Convert to MP3</button>
+                </div>
+                
+                <div class="options">
+                    <h3>Select Compression Level:</h3>
+                    <div class="compression-levels">
+                        <div class="compression-option selected" data-level="low">
+                            <i class="fas fa-file-audio"></i>
+                            <h4>Low (128kbps)</h4>
+                            <p>Smaller file size</p>
+                        </div>
+                        <div class="compression-option" data-level="medium">
+                            <i class="fas fa-file-audio"></i>
+                            <h4>Medium (192kbps)</h4>
+                            <p>Balanced quality</p>
+                        </div>
+                        <div class="compression-option" data-level="high">
+                            <i class="fas fa-file-audio"></i>
+                            <h4>High (320kbps)</h4>
+                            <p>Best audio quality</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result" id="result">
+                    <h3>Your MP3 is Ready!</h3>
+                    <p>Video Title: <span id="videoTitle">Example YouTube Video</span></p>
+                    <p>Quality: <span id="selectedQuality">128kbps</span> | Duration: <span id="duration">3:45</span></p>
+                    <p>File Size: <span id="fileSize">3.2 MB</span></p>
+                    <button class="download-btn">Download MP3</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-placeholder">
+                <i class="fab fa-google"></i>
+                <h3>AdSense Advertisement</h3>
+                <p>Ad unit will be displayed here</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our YouTube to MP3 Converter?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Lightning Fast</h3>
+                    <p>Convert YouTube videos to MP3 in seconds with our optimized processing technology.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>100% Safe</h3>
+                    <p>No registration required. We don't store your files or track your activity.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Fully Responsive</h3>
+                    <p>Works perfectly on all devices - desktop, tablet, and mobile.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <h3>High Quality</h3>
+                    <p>Download audio in multiple quality options up to 320kbps.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-infinity"></i>
+                    <h3>Unlimited Conversions</h3>
+                    <p>Convert as many videos as you want without any restrictions.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headphones"></i>
+                    <h3>Optimized Audio</h3>
+                    <p>Smart compression algorithms preserve audio quality while reducing file size.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YT2MP3 Converter</h3>
+                    <p>The fastest and most reliable YouTube to MP3 converter. Free to use with no registration required.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> How to Use</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Audio Quality</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Copyright Notice</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 YT2MP3 Converter. All rights reserved. This tool complies with YouTube's terms of service.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Compression selection
+        const compressionOptions = document.querySelectorAll('.compression-option');
+        compressionOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                compressionOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Convert button functionality
+        const convertBtn = document.getElementById('convertBtn');
+        const resultSection = document.getElementById('result');
+        
+        convertBtn.addEventListener('click', () => {
+            const urlInput = document.getElementById('youtubeUrl');
+            
+            if(urlInput.value.trim() === '') {
+                alert('Please enter a valid YouTube URL');
+                return;
+            }
+            
+            // Update result details based on selection
+            const selectedOption = document.querySelector('.compression-option.selected');
+            const qualityLevel = selectedOption.getAttribute('data-level');
+            
+            let qualityText, fileSize;
+            switch(qualityLevel) {
+                case 'low':
+                    qualityText = '128kbps';
+                    fileSize = '3.2 MB';
+                    break;
+                case 'medium':
+                    qualityText = '192kbps';
+                    fileSize = '4.8 MB';
+                    break;
+                case 'high':
+                    qualityText = '320kbps';
+                    fileSize = '8.1 MB';
+                    break;
+            }
+            
+            document.getElementById('selectedQuality').textContent = qualityText;
+            document.getElementById('fileSize').textContent = fileSize;
+            
+            // Show result
+            resultSection.classList.add('show');
+            
+            // Scroll to result
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Simulate AdSense integration
+        console.log('Google AdSense integration ready. Add your Ad Unit ID in the script tag.');
+    </script>
+</body>
+</html>
